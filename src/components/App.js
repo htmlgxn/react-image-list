@@ -5,18 +5,18 @@ import ImageList from './ImageList';
 
 class App extends React.Component {
 
-    state = { images: [] }
+    state = { images: [], entry: '' }
 
     onSearchSubmit = async (entry) => {
         const response = await axios.get(`https://pixabay.com/api/?key=21545382-3f492836205ab4207b0c87b9e&q=${encodeURIComponent(entry)}&image_type=photo`)
-        this.setState({images: response.data.hits})
+        this.setState({images: response.data.hits, entry: entry})
     }
 
     render() {
         return (
             <div className='ui container' style={{marginTop: '30px'}} >
                 <SearchInput onSearchSubmit={this.onSearchSubmit} />
-                <ImageList images={this.state.images} />
+                <ImageList images={this.state.images} entry={this.state.entry} />
             </div>
         )
     }
